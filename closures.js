@@ -1,6 +1,6 @@
 //Once you complete a problem, open up Chrome and check the answer in the console.
 
-var outer = function(){
+var outer = function() {
   var name = 'Tyler';
   return function(){
     return 'The original name was ' + name;
@@ -9,16 +9,14 @@ var outer = function(){
 //Above you're given a function that returns another function which has a closure over the name variable.
 //Invoke outer saving the return value into another variable called 'inner'.
 
-  //Code Here
+  var inner = outer();
 
 //Once you do that, invoke inner.
 
-  //Code Here
-
+  inner();
 
 
 //Next problem
-
 
 
 var callFriend = function(){
@@ -32,8 +30,8 @@ var callFriend = function(){
 //Above you're given a callFriend function that returns another function.
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
-  //Code Here
-
+  var num = callFriend();
+  num("435-215-9248");
 
 
 //Next Problem
@@ -44,7 +42,14 @@ var callFriend = function(){
   Write a function called makeCounter that makes the following code work properly.
 */
 
-  //Code Here
+  function makeCounter() {
+    var counter = 0;
+    return function() {
+      ++counter;
+    }
+
+  }
+
   var count = makeCounter();
   count(); // 1
   count(); // 2
@@ -58,11 +63,32 @@ var callFriend = function(){
 
 
 /*
-  Write a function named codeLove that returns the string 'I love code'. Write a second function named codeFriend that accepts the first function as it's first parameter. The second function should return a new third function. Store the third function in a variable, codeEcho which, when invoked, invokes the first, original function that was passed in, but will only ever do so once (returns null after first invocation).
+  Write a function named codeLove that returns the string 'I love code'. 
+  Write a second function named codeFriend that accepts the first function as it's first parameter. 
+  The second function should return a new third function. 
+  Store the third function in a variable, codeEcho which, when invoked, invokes the first, 
+  original function that was passed in, but will only ever do so once (returns null after first invocation).
 */
 
-  //Code Here
+  function codeLove() {
+    return "I love code";
+  }
 
+  function codeFriend(myFunction){
+      var fnCalled = false;
+       return function() {
+        if(!fnCalled) {
+          fnCalled = true;
+          return myFunction();
+        }
+        else {
+          return null;
+        }
+      }
+  }
+
+  var codeEcho = codeFriend(codeLove);
+  codeEcho();
 
 
 //Next Problem
@@ -70,10 +96,25 @@ var callFriend = function(){
 
 
 /*
-  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
+  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. 
+  The first parameter will be an anonymous function and the second parameter, 'N', will be a number. 
+  Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. 
+  After it's been invoked 'N' number of times, return 'STOP'.
 */
 
+function fnCounter (first, n){
+  var count=0;
+  for(var i=0; i < n; i++){
+    (function(i){return count++}(i))
+  }
+}
 
+
+for (var i = 0; i <= 5; i++) {
+  (function(i){
+    //do stuff
+  }(i))
+}
 
 //Next Problem
 
